@@ -2,21 +2,18 @@ name: Time Script
 
 on:
   schedule:
-    - cron: "*/1 * * * *"   # 1分おき (UTC基準)
-  workflow_dispatch:        # 手動実行も可能
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
 
       - name: Run Python script
         run: python time_script.py
