@@ -2,7 +2,7 @@ name: Time Script
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "0 15,21,3,9 * * *"   # JST 0時/6時/12時/18時に対応
   workflow_dispatch:
 
 permissions:
