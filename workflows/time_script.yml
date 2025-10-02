@@ -1,0 +1,30 @@
+name: Time Script
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"   # 1分おき (UTC基準)
+  workflow_dispatch:        # 手動実行も可能
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run Python script
+        run: python time_script.py
+
+      - name: Commit and push updated time file
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add now_time.txt
+          git commit -m "Update now_time.txt [skip ci]" || echo "No changes to commit"
+          git push
